@@ -142,6 +142,8 @@ namespace Kursova
 		{
 			LoadPatientsData();
 			LoadProductsData();
+			LoadPatientsToComboBox();
+			LoadAppointmentsData();
 		}
 
 		private void dgvPatients_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -590,7 +592,7 @@ namespace Kursova
 				dgvShopProducts.DataSource = data;
 				dgvShopProducts.Refresh();
 			}
-			catch (Exception ex) { /* обробка помилки */ }
+			catch (Exception) { /* обробка помилки */ }
 		}
 
 		private void label12_Click(object sender, EventArgs e)
@@ -685,6 +687,239 @@ namespace Kursova
 			catch (Exception ex)
 			{
 				MessageBox.Show("Помилка продажу: " + ex.Message, "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+		// Метод для заповнення ComboBox пацієнтами
+		private void LoadPatientsToComboBox()
+		{
+			try
+			{
+				var config = new DbConfig();
+				string connStr = ConnectionStringBuilder.Build(config);
+				var dbManager = new DatabaseManager(connStr);
+
+				var dtPatients = dbManager.GetPatientsForComboBox();
+
+				cmbPatients.DataSource = dtPatients;
+				cmbPatients.DisplayMember = "PetName"; // Що бачить адміністратор (Кличка)
+				cmbPatients.ValueMember = "Id";		  // Що приховано в пам'яті (ID пацієнта)
+				cmbPatients.SelectedIndex = -1;      // Щоб при старті список був порожнім (нікого не вибрано)
+			}
+			catch { /* Ігноруємо помилки при старті */ }
+		}
+
+		// Метод для оновлення таблиці розкладу
+		private void LoadAppointmentsData()
+		{
+			try
+			{
+				var config = new DbConfig();
+				string connStr = ConnectionStringBuilder.Build(config);
+				var dbManager = new DatabaseManager(connStr);
+
+				dgvAppointments.DataSource = null;
+				dgvAppointments.DataSource = dbManager.GetAllAppointments();
+				dgvAppointments.Refresh();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("Помилка завантаження календаря: " + ex.Message);
+			}
+		}
+
+		private void btnAddAppointment_Click(object sender, EventArgs e)
+		{
+			//1. Перевіряємо, чи вибраний пацієнт і чи заповнені дата та причина
+			if (cmbPatients.SelectedValue == null)
+			{
+				MessageBox.Show("Будь ласка, виберіть пацієнта та введіть причину прийому.", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+			if (string.IsNullOrWhiteSpace(txtReason.Text))
+			{
+				MessageBox.Show("Будь ласка, введіть причину прийому.", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+			//2.Збираємо дані 
+			int petId = Convert.ToInt32(cmbPatients.SelectedValue);
+			DateTime appointmentDate = dtpDate.Value;
+			string reason = txtReason.Text.Trim();
+			//3. Зберігаємо в базу
+			try
+			{
+				var config = new DbConfig();
+				string connStr = ConnectionStringBuilder.Build(config);
+				var dbManager = new DatabaseManager(connStr);
+
+				dbManager.InsertAppointment(petId, appointmentDate, reason);
+
+				// Оновлюємо таблицю розкладу
+				LoadAppointmentsData();
+
+				// Очищуємо поля вводу
+				txtReason.Clear();
+				cmbPatients.SelectedIndex = -1;
+				dtpDate.Value = DateTime.Now;
+
+				MessageBox.Show("Прийом успішно додано!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+			catch(Exception ex)
+			{
+				MessageBox.Show("Помилка додавання прийому: " + ex.Message, "Помилка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+		}
+
+		private void btnUpdateAppointment_Click(object sender, EventArgs e)
+		{
+			if (dgvAppointments.SelectedRows.Count == 0)
+			{
+				MessageBox.Show("Виберіть запис із таблиці для оновлення!", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+			if (cmbPatients.SelectedValue == null || string.IsNullOrWhiteSpace(txtReason.Text))
+			{
+				MessageBox.Show("Будь ласка, заповніть усі поля.", "Увага", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+
+			if (int.TryParse(dgvAppointments.SelectedRows[0].Cells[0].Value.ToString(), out int appointmentId))
+			{
+				Appointment updatedAppt = new Appointment
+				{
+					Id = appointmentId,
+					PetId = Convert.ToInt32(cmbPatients.SelectedValue),
+					Date = dtpDate.Value,
+					Reason = txtReason.Text
+				};
+
+				try
+				{
+					var config = new DbConfig();
+					string connStr = ConnectionStringBuilder.Build(config);
+					var dbManager = new DatabaseManager(connStr);
+
+					dbManager.UpdateAppointment(updatedAppt);
+					LoadAppointmentsData();
+					MessageBox.Show("Запис успішно оновлено!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				}
+				catch (Exception ex) { MessageBox.Show("Помилка: " + ex.Message); }
+			}
+		}
+
+		private void btnDeleteAppointment_Click(object sender, EventArgs e)
+		{
+			if (dgvAppointments.SelectedRows.Count == 0) return;
+
+			if (MessageBox.Show("Ви впевнені, що хочете скасувати (видалити) цей запис?", "Підтвердження", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+			{
+				if (int.TryParse(dgvAppointments.SelectedRows[0].Cells[0].Value.ToString(), out int appointmentId))
+				{
+					try
+					{
+						var config = new DbConfig();
+						string connStr = ConnectionStringBuilder.Build(config);
+						var dbManager = new DatabaseManager(connStr);
+
+						dbManager.DeleteAppointment(appointmentId);
+						LoadAppointmentsData();
+						btnClearAppointment_Click(null, null); // Очищаємо поля після видалення
+
+						MessageBox.Show("Запис скасовано!", "Успіх", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+					catch (Exception ex) { MessageBox.Show("Помилка: " + ex.Message); }
+				}
+			}
+		}
+
+		private void btnClearAppointment_Click(object sender, EventArgs e)
+		{
+			cmbPatients.SelectedIndex = -1;
+			dtpDate.Value = DateTime.Now;
+			txtReason.Clear();
+			dgvAppointments.ClearSelection();
+		}
+		private void dgvAppointments_SelectionChanged(object sender, EventArgs e)
+		{
+			if (dgvAppointments.SelectedRows.Count > 0)
+			{
+				DataGridViewRow row = dgvAppointments.SelectedRows[0];
+				if (row.Cells[0].Value != null && int.TryParse(row.Cells[0].Value.ToString(), out int appointmentId))
+				{
+					try
+					{
+						var config = new DbConfig();
+						string connStr = ConnectionStringBuilder.Build(config);
+						var dbManager = new DatabaseManager(connStr);
+
+						Appointment appt = dbManager.GetAppointmentById(appointmentId);
+
+						if (appt != null)
+						{
+							// Заповнюємо поля даними з бази
+							cmbPatients.SelectedValue = appt.PetId;
+							dtpDate.Value = appt.Date;
+							txtReason.Text = appt.Reason;
+						}
+					}
+					catch { /* Ігноруємо помилки при перемиканні */ }
+				}
+			}
+		}
+		private void LoadStatistics()
+		{
+			try
+			{
+				var config = new DbConfig();
+				string connStr = ConnectionStringBuilder.Build(config);
+				var dbManager = new DatabaseManager(connStr);
+
+				int patients = dbManager.GetTotalPatientsCount();
+				int products = dbManager.GetTotalProductsCount();
+				int appointments = dbManager.GetTotalAppointmentsCount();
+				decimal money = dbManager.GetTotalInventoryValue();
+
+				lblTotalPatients.Text = $"Всього пацієнтів: {patients}";
+				lblTotalProducts.Text = $"Всього товарів на складі: {products}";
+				lblTotalAppointments.Text = $"Записів у календарі: {appointments}";
+				lblTotalMoney.Text = $"Сума товарів на складі: {money:0.00} грн";
+
+				// --- КОД ДЛЯ ГРАФІКА ---
+				var dtCategories = dbManager.GetCategoryStatistics();
+
+				// Очищаємо старі дані графіка
+				chart1.Series[0].Points.Clear();
+				chart1.Titles.Clear();
+
+				// Додаємо заголовок
+				chart1.Titles.Add("Розподіл товарів за категоріями");
+
+				// Додаємо дані з таблиці на графік
+				foreach (System.Data.DataRow row in dtCategories.Rows)
+				{
+					// Беремо назву категорії (якщо вона порожня, пишемо "Без категорії")
+					string categoryName = row["Category"] != DBNull.Value && !string.IsNullOrWhiteSpace(row["Category"].ToString())
+											? row["Category"].ToString()
+											: "Без категорії";
+
+					// Беремо кількість
+					int quantity = row["TotalQuantity"] != DBNull.Value ? Convert.ToInt32(row["TotalQuantity"]) : 0;
+
+					// Додаємо шматок на круглу діаграму
+					chart1.Series[0].Points.AddXY(categoryName, quantity);
+				}
+			}
+			catch (Exception)
+			{
+				// Ігноруємо помилки статистики при старті
+			}
+		}
+
+		private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			// Якщо вибрана остання вкладка (Статистика) - номер вкладки може відрізнятися (наприклад, 4), змініть індекс на ваш
+			if (tabControl1.SelectedTab.Text == "Статистика")
+			{
+				LoadStatistics();
 			}
 		}
 	}

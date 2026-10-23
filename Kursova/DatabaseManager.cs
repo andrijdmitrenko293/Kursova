@@ -272,5 +272,208 @@ namespace Kursova
 				}
 			}
 		}
+		// --- МЕТОДИ ДЛЯ КАЛЕНДАРЯ ---
+
+		// 1. Отримуємо список пацієнтів для випадаючого списку (ComboBox)
+		public System.Data.DataTable GetPatientsForComboBox()
+		{
+			System.Data.DataTable table = new System.Data.DataTable();
+			using (var conn = new MySqlConnection(_connString))
+			{
+				conn.Open();
+				string query = "SELECT Id, PetName FROM Pets";
+				using (var cmd = new MySqlCommand(query, conn))
+				{
+					using (var adapter = new MySqlDataAdapter(cmd))
+					{
+						adapter.Fill(table);
+					}
+				}
+			}
+			return table;
+		}
+
+		// 2. Додаємо новий запис на прийом у базу
+		public void InsertAppointment(int petId, DateTime date, string reason)
+		{
+			using (var conn = new MySqlConnection(_connString))
+			{
+				conn.Open();
+				string query = "INSERT INTO Appointments (PetId, AppointmentDate, Reason) VALUES (@petId, @date, @reason)";
+				using (var cmd = new MySqlCommand(query, conn))
+				{
+					cmd.Parameters.AddWithValue("@petId", petId);
+					cmd.Parameters.AddWithValue("@date", date);
+					cmd.Parameters.AddWithValue("@reason", reason);
+					cmd.ExecuteNonQuery();
+				}
+			}
+		}
+
+		// 3. Отримуємо всі записи для таблиці на екрані (об'єднуємо таблиці, щоб бачити кличку замість ID)
+		public System.Data.DataTable GetAllAppointments()
+		{
+			System.Data.DataTable table = new System.Data.DataTable();
+			using (var conn = new MySqlConnection(_connString))
+			{
+				conn.Open();
+				string query = @"SELECT a.Id AS '№', 
+                        p.PetName AS 'Пацієнт', 
+                        a.AppointmentDate AS 'Дата та час', 
+                        a.Reason AS 'Причина' 
+                 FROM Appointments a 
+                 JOIN Pets p ON a.PetId = p.Id 
+                 ORDER BY a.AppointmentDate";
+				using (var cmd = new MySqlCommand(query, conn))
+				{
+					using (var adapter = new MySqlDataAdapter(cmd))
+					{
+						adapter.Fill(table);
+					}
+				}
+			}
+			return table;
+		}
+		// --- МЕТОДИ ДЛЯ РЕДАГУВАННЯ КАЛЕНДАРЯ ---
+
+		// 1. Отримати запис за ID (щоб заповнити поля при кліку на таблицю)
+		public Appointment GetAppointmentById(int appointmentId)
+		{
+			Appointment appt = null;
+			using (var conn = new MySqlConnection(_connString))
+			{
+				conn.Open();
+				string query = "SELECT * FROM Appointments WHERE Id = @id";
+				using (var cmd = new MySqlCommand(query, conn))
+				{
+					cmd.Parameters.AddWithValue("@id", appointmentId);
+					using (var reader = cmd.ExecuteReader())
+					{
+						if (reader.Read())
+						{
+							appt = new Appointment
+							{
+								Id = reader.GetInt32("Id"),
+								PetId = reader.GetInt32("PetId"),
+								Date = reader.GetDateTime("AppointmentDate"),
+								Reason = reader.IsDBNull(reader.GetOrdinal("Reason")) ? string.Empty : reader.GetString("Reason")
+							};
+						}
+					}
+				}
+			}
+			return appt;
+		}
+
+		// 2. Оновити існуючий запис
+		public void UpdateAppointment(Appointment appt)
+		{
+			using (var conn = new MySqlConnection(_connString))
+			{
+				conn.Open();
+				string query = "UPDATE Appointments SET PetId = @petId, AppointmentDate = @date, Reason = @reason WHERE Id = @id";
+				using (var cmd = new MySqlCommand(query, conn))
+				{
+					cmd.Parameters.AddWithValue("@id", appt.Id);
+					cmd.Parameters.AddWithValue("@petId", appt.PetId);
+					cmd.Parameters.AddWithValue("@date", appt.Date);
+					cmd.Parameters.AddWithValue("@reason", appt.Reason);
+					cmd.ExecuteNonQuery();
+				}
+			}
+		}
+
+		// 3. Видалити запис
+		public void DeleteAppointment(int appointmentId)
+		{
+			using (var conn = new MySqlConnection(_connString))
+			{
+				conn.Open();
+				string query = "DELETE FROM Appointments WHERE Id = @id";
+				using (var cmd = new MySqlCommand(query, conn))
+				{
+					cmd.Parameters.AddWithValue("@id", appointmentId);
+					cmd.ExecuteNonQuery();
+				}
+			}
+		}
+		// --- МЕТОДИ ДЛЯ СТАТИСТИКИ ---
+
+		// 1. Рахуємо загальну кількість пацієнтів
+		public int GetTotalPatientsCount()
+		{
+			using (var conn = new MySqlConnection(_connString))
+			{
+				conn.Open();
+				string query = "SELECT COUNT(*) FROM Pets";
+				using (var cmd = new MySqlCommand(query, conn))
+				{
+					return Convert.ToInt32(cmd.ExecuteScalar());
+				}
+			}
+		}
+
+		// 2. Рахуємо загальну кількість видів товарів на складі
+		public int GetTotalProductsCount()
+		{
+			using (var conn = new MySqlConnection(_connString))
+			{
+				conn.Open();
+				string query = "SELECT COUNT(*) FROM Products";
+				using (var cmd = new MySqlCommand(query, conn))
+				{
+					return Convert.ToInt32(cmd.ExecuteScalar());
+				}
+			}
+		}
+
+		// 3. Рахуємо кількість майбутніх записів у календарі
+		public int GetTotalAppointmentsCount()
+		{
+			using (var conn = new MySqlConnection(_connString))
+			{
+				conn.Open();
+				string query = "SELECT COUNT(*) FROM Appointments";
+				using (var cmd = new MySqlCommand(query, conn))
+				{
+					return Convert.ToInt32(cmd.ExecuteScalar());
+				}
+			}
+		}
+
+		// 4. Рахуємо загальну вартість усіх товарів на складі (Кількість * Ціна)
+		public decimal GetTotalInventoryValue()
+		{
+			using (var conn = new MySqlConnection(_connString))
+			{
+				conn.Open();
+				string query = "SELECT SUM(Quantity * Price) FROM Products";
+				using (var cmd = new MySqlCommand(query, conn))
+				{
+					object result = cmd.ExecuteScalar();
+					return result != DBNull.Value ? Convert.ToDecimal(result) : 0;
+				}
+			}
+		}
+
+		// Метод для отримання даних для графіка (категорія товару і загальна кількість)
+		public System.Data.DataTable GetCategoryStatistics()
+		{
+			System.Data.DataTable table = new System.Data.DataTable();
+			using (var conn = new MySqlConnection(_connString))
+			{
+				conn.Open();
+				// Групуємо товари за категоріями і рахуємо загальну кількість
+				string query = "SELECT Category, SUM(Quantity) AS TotalQuantity FROM Products GROUP BY Category";
+				using (var cmd = new MySqlCommand(query, conn))
+				{
+					using (var adapter = new MySqlDataAdapter(cmd))
+					{
+						adapter.Fill(table);
+					}
+				}
+			}
+			return table;
+		}
 	}
 }
