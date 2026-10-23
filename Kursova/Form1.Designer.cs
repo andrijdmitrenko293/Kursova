@@ -28,6 +28,9 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+			System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+			System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -60,6 +63,17 @@
 			this.txtShopProductName = new System.Windows.Forms.TextBox();
 			this.dgvShopProducts = new System.Windows.Forms.DataGridView();
 			this.tabPage3 = new System.Windows.Forms.TabPage();
+			this.btnClearAppointment = new System.Windows.Forms.Button();
+			this.btnDeleteAppointment = new System.Windows.Forms.Button();
+			this.btnUpdateAppointment = new System.Windows.Forms.Button();
+			this.label15 = new System.Windows.Forms.Label();
+			this.label14 = new System.Windows.Forms.Label();
+			this.label13 = new System.Windows.Forms.Label();
+			this.dgvAppointments = new System.Windows.Forms.DataGridView();
+			this.txtReason = new System.Windows.Forms.TextBox();
+			this.btnAddAppointment = new System.Windows.Forms.Button();
+			this.dtpDate = new System.Windows.Forms.DateTimePicker();
+			this.cmbPatients = new System.Windows.Forms.ComboBox();
 			this.tabPage4 = new System.Windows.Forms.TabPage();
 			this.btnClearProduct = new System.Windows.Forms.Button();
 			this.btnDeleteProduct = new System.Windows.Forms.Button();
@@ -74,6 +88,12 @@
 			this.label8 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
 			this.dgvProducts = new System.Windows.Forms.DataGridView();
+			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+			this.lblTotalMoney = new System.Windows.Forms.Label();
+			this.lblTotalAppointments = new System.Windows.Forms.Label();
+			this.lblTotalProducts = new System.Windows.Forms.Label();
+			this.lblTotalPatients = new System.Windows.Forms.Label();
 			this.button2 = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -81,8 +101,12 @@
 			((System.ComponentModel.ISupportInitialize)(this.dgvPatients)).BeginInit();
 			this.tabPage2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvShopProducts)).BeginInit();
+			this.tabPage3.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgvAppointments)).BeginInit();
 			this.tabPage4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
+			this.tabPage5.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -91,12 +115,14 @@
 			this.tabControl1.Controls.Add(this.tabPage2);
 			this.tabControl1.Controls.Add(this.tabPage3);
 			this.tabControl1.Controls.Add(this.tabPage4);
+			this.tabControl1.Controls.Add(this.tabPage5);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
 			this.tabControl1.Size = new System.Drawing.Size(1342, 674);
 			this.tabControl1.TabIndex = 0;
+			this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
 			// 
 			// tabPage1
 			// 
@@ -147,6 +173,7 @@
 			// 
 			// btnClear
 			// 
+			this.btnClear.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.btnClear.Location = new System.Drawing.Point(531, 563);
 			this.btnClear.Name = "btnClear";
 			this.btnClear.Size = new System.Drawing.Size(197, 35);
@@ -157,6 +184,7 @@
 			// 
 			// btnExportExcel
 			// 
+			this.btnExportExcel.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.btnExportExcel.Location = new System.Drawing.Point(531, 491);
 			this.btnExportExcel.Name = "btnExportExcel";
 			this.btnExportExcel.Size = new System.Drawing.Size(197, 35);
@@ -167,6 +195,7 @@
 			// 
 			// btnDelete
 			// 
+			this.btnDelete.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.btnDelete.Location = new System.Drawing.Point(280, 563);
 			this.btnDelete.Name = "btnDelete";
 			this.btnDelete.Size = new System.Drawing.Size(197, 35);
@@ -177,6 +206,7 @@
 			// 
 			// btnUpdate
 			// 
+			this.btnUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.btnUpdate.Location = new System.Drawing.Point(28, 563);
 			this.btnUpdate.Name = "btnUpdate";
 			this.btnUpdate.Size = new System.Drawing.Size(197, 35);
@@ -216,7 +246,7 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(24, 102);
+			this.label2.Location = new System.Drawing.Point(24, 103);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(44, 20);
 			this.label2.TabIndex = 10;
@@ -234,6 +264,7 @@
 			// 
 			// btnSave
 			// 
+			this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.btnSave.Location = new System.Drawing.Point(280, 491);
 			this.btnSave.Name = "btnSave";
 			this.btnSave.Size = new System.Drawing.Size(197, 35);
@@ -244,6 +275,7 @@
 			// 
 			// btnUploadPhoto
 			// 
+			this.btnUploadPhoto.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.btnUploadPhoto.Location = new System.Drawing.Point(28, 491);
 			this.btnUploadPhoto.Name = "btnUploadPhoto";
 			this.btnUploadPhoto.Size = new System.Drawing.Size(197, 35);
@@ -256,7 +288,7 @@
 			// 
 			this.picPetPhoto.Location = new System.Drawing.Point(352, 6);
 			this.picPetPhoto.Name = "picPetPhoto";
-			this.picPetPhoto.Size = new System.Drawing.Size(190, 192);
+			this.picPetPhoto.Size = new System.Drawing.Size(190, 193);
 			this.picPetPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
 			this.picPetPhoto.TabIndex = 6;
 			this.picPetPhoto.TabStop = false;
@@ -270,14 +302,14 @@
 			// 
 			// txtOwner
 			// 
-			this.txtOwner.Location = new System.Drawing.Point(28, 318);
+			this.txtOwner.Location = new System.Drawing.Point(28, 317);
 			this.txtOwner.Name = "txtOwner";
 			this.txtOwner.Size = new System.Drawing.Size(281, 26);
 			this.txtOwner.TabIndex = 4;
 			// 
 			// txtBreed
 			// 
-			this.txtBreed.Location = new System.Drawing.Point(28, 232);
+			this.txtBreed.Location = new System.Drawing.Point(28, 233);
 			this.txtBreed.Name = "txtBreed";
 			this.txtBreed.Size = new System.Drawing.Size(281, 26);
 			this.txtBreed.TabIndex = 3;
@@ -292,7 +324,7 @@
 			// 
 			// txtName
 			// 
-			this.txtName.Location = new System.Drawing.Point(28, 52);
+			this.txtName.Location = new System.Drawing.Point(28, 53);
 			this.txtName.Name = "txtName";
 			this.txtName.Size = new System.Drawing.Size(281, 26);
 			this.txtName.TabIndex = 1;
@@ -300,6 +332,8 @@
 			// dgvPatients
 			// 
 			this.dgvPatients.AllowUserToAddRows = false;
+			this.dgvPatients.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+			this.dgvPatients.BackgroundColor = System.Drawing.SystemColors.ControlLight;
 			this.dgvPatients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgvPatients.Location = new System.Drawing.Point(570, 6);
 			this.dgvPatients.Name = "dgvPatients";
@@ -330,9 +364,10 @@
 			// 
 			// btnSell
 			// 
-			this.btnSell.Location = new System.Drawing.Point(18, 410);
+			this.btnSell.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.btnSell.Location = new System.Drawing.Point(18, 388);
 			this.btnSell.Name = "btnSell";
-			this.btnSell.Size = new System.Drawing.Size(204, 31);
+			this.btnSell.Size = new System.Drawing.Size(204, 37);
 			this.btnSell.TabIndex = 6;
 			this.btnSell.Text = "Продати";
 			this.btnSell.UseVisualStyleBackColor = true;
@@ -362,9 +397,10 @@
 			this.label11.AutoSize = true;
 			this.label11.Location = new System.Drawing.Point(14, 31);
 			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(259, 20);
+			this.label11.Size = new System.Drawing.Size(198, 20);
 			this.label11.TabIndex = 3;
-			this.label11.Text = "Введіть назву вибраного товару:";
+			this.label11.Text = "Виберіть товар зі списку:";
+			this.label11.Click += new System.EventHandler(this.label11_Click);
 			// 
 			// txtSellQuantity
 			// 
@@ -384,20 +420,34 @@
 			// 
 			// dgvShopProducts
 			// 
+			this.dgvShopProducts.AllowUserToAddRows = false;
+			this.dgvShopProducts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+			this.dgvShopProducts.BackgroundColor = System.Drawing.SystemColors.ControlLight;
 			this.dgvShopProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			this.dgvShopProducts.Location = new System.Drawing.Point(570, 6);
+			this.dgvShopProducts.Location = new System.Drawing.Point(571, 6);
 			this.dgvShopProducts.Name = "dgvShopProducts";
 			this.dgvShopProducts.ReadOnly = true;
 			this.dgvShopProducts.RowHeadersWidth = 62;
 			this.dgvShopProducts.RowTemplate.Height = 28;
 			this.dgvShopProducts.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dgvShopProducts.Size = new System.Drawing.Size(757, 385);
+			this.dgvShopProducts.Size = new System.Drawing.Size(756, 419);
 			this.dgvShopProducts.TabIndex = 0;
 			this.dgvShopProducts.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvShopProducts_CellContentClick);
 			this.dgvShopProducts.SelectionChanged += new System.EventHandler(this.dgvShopProducts_SelectionChanged);
 			// 
 			// tabPage3
 			// 
+			this.tabPage3.Controls.Add(this.btnClearAppointment);
+			this.tabPage3.Controls.Add(this.btnDeleteAppointment);
+			this.tabPage3.Controls.Add(this.btnUpdateAppointment);
+			this.tabPage3.Controls.Add(this.label15);
+			this.tabPage3.Controls.Add(this.label14);
+			this.tabPage3.Controls.Add(this.label13);
+			this.tabPage3.Controls.Add(this.dgvAppointments);
+			this.tabPage3.Controls.Add(this.txtReason);
+			this.tabPage3.Controls.Add(this.btnAddAppointment);
+			this.tabPage3.Controls.Add(this.dtpDate);
+			this.tabPage3.Controls.Add(this.cmbPatients);
 			this.tabPage3.Location = new System.Drawing.Point(4, 29);
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -405,6 +455,118 @@
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "Календар";
 			this.tabPage3.UseVisualStyleBackColor = true;
+			// 
+			// btnClearAppointment
+			// 
+			this.btnClearAppointment.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.btnClearAppointment.Location = new System.Drawing.Point(306, 487);
+			this.btnClearAppointment.Name = "btnClearAppointment";
+			this.btnClearAppointment.Size = new System.Drawing.Size(217, 36);
+			this.btnClearAppointment.TabIndex = 10;
+			this.btnClearAppointment.Text = "Очистити поля";
+			this.btnClearAppointment.UseVisualStyleBackColor = true;
+			this.btnClearAppointment.Click += new System.EventHandler(this.btnClearAppointment_Click);
+			// 
+			// btnDeleteAppointment
+			// 
+			this.btnDeleteAppointment.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.btnDeleteAppointment.Location = new System.Drawing.Point(44, 487);
+			this.btnDeleteAppointment.Name = "btnDeleteAppointment";
+			this.btnDeleteAppointment.Size = new System.Drawing.Size(217, 36);
+			this.btnDeleteAppointment.TabIndex = 9;
+			this.btnDeleteAppointment.Text = "Видалити запис";
+			this.btnDeleteAppointment.UseVisualStyleBackColor = true;
+			this.btnDeleteAppointment.Click += new System.EventHandler(this.btnDeleteAppointment_Click);
+			// 
+			// btnUpdateAppointment
+			// 
+			this.btnUpdateAppointment.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.btnUpdateAppointment.Location = new System.Drawing.Point(306, 389);
+			this.btnUpdateAppointment.Name = "btnUpdateAppointment";
+			this.btnUpdateAppointment.Size = new System.Drawing.Size(217, 36);
+			this.btnUpdateAppointment.TabIndex = 8;
+			this.btnUpdateAppointment.Text = "Оновити запис";
+			this.btnUpdateAppointment.UseVisualStyleBackColor = true;
+			this.btnUpdateAppointment.Click += new System.EventHandler(this.btnUpdateAppointment_Click);
+			// 
+			// label15
+			// 
+			this.label15.AutoSize = true;
+			this.label15.Location = new System.Drawing.Point(40, 245);
+			this.label15.Name = "label15";
+			this.label15.Size = new System.Drawing.Size(200, 20);
+			this.label15.TabIndex = 7;
+			this.label15.Text = "Напишіть причину візиту:";
+			// 
+			// label14
+			// 
+			this.label14.AutoSize = true;
+			this.label14.Location = new System.Drawing.Point(40, 133);
+			this.label14.Name = "label14";
+			this.label14.Size = new System.Drawing.Size(173, 20);
+			this.label14.TabIndex = 6;
+			this.label14.Text = "Виберіть дату та час:";
+			// 
+			// label13
+			// 
+			this.label13.AutoSize = true;
+			this.label13.Location = new System.Drawing.Point(40, 17);
+			this.label13.Name = "label13";
+			this.label13.Size = new System.Drawing.Size(151, 20);
+			this.label13.TabIndex = 5;
+			this.label13.Text = "Виберіть пацієнта:";
+			// 
+			// dgvAppointments
+			// 
+			this.dgvAppointments.AllowUserToAddRows = false;
+			this.dgvAppointments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+			this.dgvAppointments.BackgroundColor = System.Drawing.SystemColors.ControlLight;
+			this.dgvAppointments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dgvAppointments.Location = new System.Drawing.Point(570, 6);
+			this.dgvAppointments.Name = "dgvAppointments";
+			this.dgvAppointments.ReadOnly = true;
+			this.dgvAppointments.RowHeadersWidth = 62;
+			this.dgvAppointments.RowTemplate.Height = 28;
+			this.dgvAppointments.Size = new System.Drawing.Size(756, 419);
+			this.dgvAppointments.TabIndex = 4;
+			this.dgvAppointments.SelectionChanged += new System.EventHandler(this.dgvAppointments_SelectionChanged);
+			// 
+			// txtReason
+			// 
+			this.txtReason.Location = new System.Drawing.Point(44, 281);
+			this.txtReason.Name = "txtReason";
+			this.txtReason.Size = new System.Drawing.Size(417, 26);
+			this.txtReason.TabIndex = 3;
+			// 
+			// btnAddAppointment
+			// 
+			this.btnAddAppointment.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.btnAddAppointment.Location = new System.Drawing.Point(44, 389);
+			this.btnAddAppointment.Name = "btnAddAppointment";
+			this.btnAddAppointment.Size = new System.Drawing.Size(217, 36);
+			this.btnAddAppointment.TabIndex = 2;
+			this.btnAddAppointment.Text = "Записатись на прийом";
+			this.btnAddAppointment.UseVisualStyleBackColor = true;
+			this.btnAddAppointment.Click += new System.EventHandler(this.btnAddAppointment_Click);
+			// 
+			// dtpDate
+			// 
+			this.dtpDate.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.dtpDate.CustomFormat = "dd.MM.yyyy HH:mm";
+			this.dtpDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+			this.dtpDate.Location = new System.Drawing.Point(44, 175);
+			this.dtpDate.Name = "dtpDate";
+			this.dtpDate.Size = new System.Drawing.Size(200, 26);
+			this.dtpDate.TabIndex = 1;
+			// 
+			// cmbPatients
+			// 
+			this.cmbPatients.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.cmbPatients.FormattingEnabled = true;
+			this.cmbPatients.Location = new System.Drawing.Point(44, 60);
+			this.cmbPatients.Name = "cmbPatients";
+			this.cmbPatients.Size = new System.Drawing.Size(264, 28);
+			this.cmbPatients.TabIndex = 0;
 			// 
 			// tabPage4
 			// 
@@ -431,6 +593,7 @@
 			// 
 			// btnClearProduct
 			// 
+			this.btnClearProduct.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.btnClearProduct.Location = new System.Drawing.Point(260, 545);
 			this.btnClearProduct.Name = "btnClearProduct";
 			this.btnClearProduct.Size = new System.Drawing.Size(226, 37);
@@ -441,6 +604,7 @@
 			// 
 			// btnDeleteProduct
 			// 
+			this.btnDeleteProduct.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.btnDeleteProduct.Location = new System.Drawing.Point(25, 545);
 			this.btnDeleteProduct.Name = "btnDeleteProduct";
 			this.btnDeleteProduct.Size = new System.Drawing.Size(226, 37);
@@ -451,6 +615,7 @@
 			// 
 			// btnUpdateProduct
 			// 
+			this.btnUpdateProduct.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.btnUpdateProduct.Location = new System.Drawing.Point(260, 463);
 			this.btnUpdateProduct.Name = "btnUpdateProduct";
 			this.btnUpdateProduct.Size = new System.Drawing.Size(226, 37);
@@ -461,6 +626,7 @@
 			// 
 			// btnAddProduct
 			// 
+			this.btnAddProduct.Cursor = System.Windows.Forms.Cursors.Hand;
 			this.btnAddProduct.Location = new System.Drawing.Point(25, 463);
 			this.btnAddProduct.Name = "btnAddProduct";
 			this.btnAddProduct.Size = new System.Drawing.Size(226, 37);
@@ -492,7 +658,7 @@
 			// 
 			// txtProductName
 			// 
-			this.txtProductName.Location = new System.Drawing.Point(25, 62);
+			this.txtProductName.Location = new System.Drawing.Point(25, 63);
 			this.txtProductName.Name = "txtProductName";
 			this.txtProductName.Size = new System.Drawing.Size(503, 26);
 			this.txtProductName.TabIndex = 5;
@@ -500,7 +666,7 @@
 			// label10
 			// 
 			this.label10.AutoSize = true;
-			this.label10.Location = new System.Drawing.Point(21, 318);
+			this.label10.Location = new System.Drawing.Point(21, 317);
 			this.label10.Name = "label10";
 			this.label10.Size = new System.Drawing.Size(46, 20);
 			this.label10.TabIndex = 4;
@@ -535,6 +701,9 @@
 			// 
 			// dgvProducts
 			// 
+			this.dgvProducts.AllowUserToAddRows = false;
+			this.dgvProducts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+			this.dgvProducts.BackgroundColor = System.Drawing.SystemColors.ControlLight;
 			this.dgvProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgvProducts.Location = new System.Drawing.Point(570, 6);
 			this.dgvProducts.Name = "dgvProducts";
@@ -543,6 +712,78 @@
 			this.dgvProducts.Size = new System.Drawing.Size(756, 419);
 			this.dgvProducts.TabIndex = 0;
 			this.dgvProducts.SelectionChanged += new System.EventHandler(this.dgvProducts_SelectionChanged);
+			// 
+			// tabPage5
+			// 
+			this.tabPage5.Controls.Add(this.chart1);
+			this.tabPage5.Controls.Add(this.lblTotalMoney);
+			this.tabPage5.Controls.Add(this.lblTotalAppointments);
+			this.tabPage5.Controls.Add(this.lblTotalProducts);
+			this.tabPage5.Controls.Add(this.lblTotalPatients);
+			this.tabPage5.Location = new System.Drawing.Point(4, 29);
+			this.tabPage5.Name = "tabPage5";
+			this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage5.Size = new System.Drawing.Size(1334, 641);
+			this.tabPage5.TabIndex = 4;
+			this.tabPage5.Text = "Статистика";
+			this.tabPage5.UseVisualStyleBackColor = true;
+			// 
+			// chart1
+			// 
+			chartArea1.Name = "ChartArea1";
+			this.chart1.ChartAreas.Add(chartArea1);
+			legend1.Name = "Legend1";
+			this.chart1.Legends.Add(legend1);
+			this.chart1.Location = new System.Drawing.Point(703, 55);
+			this.chart1.Name = "chart1";
+			series1.ChartArea = "ChartArea1";
+			series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+			series1.Legend = "Legend1";
+			series1.Name = "Series1";
+			this.chart1.Series.Add(series1);
+			this.chart1.Size = new System.Drawing.Size(534, 355);
+			this.chart1.TabIndex = 4;
+			this.chart1.Text = "chart1";
+			// 
+			// lblTotalMoney
+			// 
+			this.lblTotalMoney.AutoSize = true;
+			this.lblTotalMoney.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.lblTotalMoney.Location = new System.Drawing.Point(87, 378);
+			this.lblTotalMoney.Name = "lblTotalMoney";
+			this.lblTotalMoney.Size = new System.Drawing.Size(399, 32);
+			this.lblTotalMoney.TabIndex = 3;
+			this.lblTotalMoney.Text = "Сума товарів на складі: 0 грн";
+			// 
+			// lblTotalAppointments
+			// 
+			this.lblTotalAppointments.AutoSize = true;
+			this.lblTotalAppointments.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.lblTotalAppointments.Location = new System.Drawing.Point(87, 268);
+			this.lblTotalAppointments.Name = "lblTotalAppointments";
+			this.lblTotalAppointments.Size = new System.Drawing.Size(308, 32);
+			this.lblTotalAppointments.TabIndex = 2;
+			this.lblTotalAppointments.Text = "Записів у календарі: 0";
+			// 
+			// lblTotalProducts
+			// 
+			this.lblTotalProducts.AutoSize = true;
+			this.lblTotalProducts.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.lblTotalProducts.Location = new System.Drawing.Point(87, 155);
+			this.lblTotalProducts.Name = "lblTotalProducts";
+			this.lblTotalProducts.Size = new System.Drawing.Size(370, 32);
+			this.lblTotalProducts.TabIndex = 1;
+			this.lblTotalProducts.Text = "Всього товарів на складі: 0";
+			// 
+			// lblTotalPatients
+			// 
+			this.lblTotalPatients.AutoSize = true;
+			this.lblTotalPatients.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.lblTotalPatients.Location = new System.Drawing.Point(87, 55);
+			this.lblTotalPatients.Name = "lblTotalPatients";
+			this.lblTotalPatients.Size = new System.Drawing.Size(263, 32);
+			this.lblTotalPatients.TabIndex = 0;
+			this.lblTotalPatients.Text = "Всього пацієнтів: 0";
 			// 
 			// button2
 			// 
@@ -571,9 +812,15 @@
 			this.tabPage2.ResumeLayout(false);
 			this.tabPage2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvShopProducts)).EndInit();
+			this.tabPage3.ResumeLayout(false);
+			this.tabPage3.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.dgvAppointments)).EndInit();
 			this.tabPage4.ResumeLayout(false);
 			this.tabPage4.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).EndInit();
+			this.tabPage5.ResumeLayout(false);
+			this.tabPage5.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -626,6 +873,23 @@
 		private System.Windows.Forms.TextBox txtSellQuantity;
 		private System.Windows.Forms.TextBox txtShopProductName;
 		private System.Windows.Forms.Button btnSell;
+		private System.Windows.Forms.DateTimePicker dtpDate;
+		private System.Windows.Forms.ComboBox cmbPatients;
+		private System.Windows.Forms.DataGridView dgvAppointments;
+		private System.Windows.Forms.TextBox txtReason;
+		private System.Windows.Forms.Button btnAddAppointment;
+		private System.Windows.Forms.Label label15;
+		private System.Windows.Forms.Label label14;
+		private System.Windows.Forms.Label label13;
+		private System.Windows.Forms.Button btnClearAppointment;
+		private System.Windows.Forms.Button btnDeleteAppointment;
+		private System.Windows.Forms.Button btnUpdateAppointment;
+		private System.Windows.Forms.TabPage tabPage5;
+		private System.Windows.Forms.Label lblTotalMoney;
+		private System.Windows.Forms.Label lblTotalAppointments;
+		private System.Windows.Forms.Label lblTotalProducts;
+		private System.Windows.Forms.Label lblTotalPatients;
+		private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
 	}
 }
 
