@@ -88,13 +88,13 @@
 			this.label8 = new System.Windows.Forms.Label();
 			this.label7 = new System.Windows.Forms.Label();
 			this.dgvProducts = new System.Windows.Forms.DataGridView();
-			this.tabPage5 = new System.Windows.Forms.TabPage();
-			this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-			this.lblTotalMoney = new System.Windows.Forms.Label();
-			this.lblTotalAppointments = new System.Windows.Forms.Label();
-			this.lblTotalProducts = new System.Windows.Forms.Label();
-			this.lblTotalPatients = new System.Windows.Forms.Label();
 			this.button2 = new System.Windows.Forms.Button();
+			this.tabPage5 = new System.Windows.Forms.TabPage();
+			this.lblTotalPatients = new System.Windows.Forms.Label();
+			this.lblTotalProducts = new System.Windows.Forms.Label();
+			this.lblTotalAppointments = new System.Windows.Forms.Label();
+			this.lblTotalMoney = new System.Windows.Forms.Label();
+			this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.picPetPhoto)).BeginInit();
@@ -148,7 +148,7 @@
 			this.tabPage1.Controls.Add(this.dgvPatients);
 			this.tabPage1.Location = new System.Drawing.Point(4, 29);
 			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
 			this.tabPage1.Size = new System.Drawing.Size(1334, 641);
 			this.tabPage1.TabIndex = 0;
 			this.tabPage1.Text = "Реєстатура";
@@ -356,7 +356,7 @@
 			this.tabPage2.Controls.Add(this.dgvShopProducts);
 			this.tabPage2.Location = new System.Drawing.Point(4, 29);
 			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
 			this.tabPage2.Size = new System.Drawing.Size(1334, 641);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Магазин";
@@ -450,7 +450,7 @@
 			this.tabPage3.Controls.Add(this.cmbPatients);
 			this.tabPage3.Location = new System.Drawing.Point(4, 29);
 			this.tabPage3.Name = "tabPage3";
-			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage3.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
 			this.tabPage3.Size = new System.Drawing.Size(1334, 641);
 			this.tabPage3.TabIndex = 2;
 			this.tabPage3.Text = "Календар";
@@ -585,7 +585,7 @@
 			this.tabPage4.Controls.Add(this.dgvProducts);
 			this.tabPage4.Location = new System.Drawing.Point(4, 29);
 			this.tabPage4.Name = "tabPage4";
-			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage4.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
 			this.tabPage4.Size = new System.Drawing.Size(1334, 641);
 			this.tabPage4.TabIndex = 3;
 			this.tabPage4.Text = "Склад";
@@ -731,16 +731,16 @@
 			// chart1
 			// 
 			chartArea1.Name = "ChartArea1";
-			this.chart1.ChartAreas.Add(chartArea1);
+			
 			legend1.Name = "Legend1";
-			this.chart1.Legends.Add(legend1);
+			
 			this.chart1.Location = new System.Drawing.Point(703, 55);
 			this.chart1.Name = "chart1";
 			series1.ChartArea = "ChartArea1";
 			series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
 			series1.Legend = "Legend1";
 			series1.Name = "Series1";
-			this.chart1.Series.Add(series1);
+
 			this.chart1.Size = new System.Drawing.Size(534, 355);
 			this.chart1.TabIndex = 4;
 			this.chart1.Text = "chart1";
@@ -793,6 +793,78 @@
 			this.button2.TabIndex = 15;
 			this.button2.Text = "button2";
 			this.button2.UseVisualStyleBackColor = true;
+			// 
+			// tabPage5
+			// 
+			this.tabPage5.Controls.Add(this.chart1);
+			this.tabPage5.Controls.Add(this.lblTotalMoney);
+			this.tabPage5.Controls.Add(this.lblTotalAppointments);
+			this.tabPage5.Controls.Add(this.lblTotalProducts);
+			this.tabPage5.Controls.Add(this.lblTotalPatients);
+			this.tabPage5.Location = new System.Drawing.Point(4, 29);
+			this.tabPage5.Name = "tabPage5";
+			this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage5.Size = new System.Drawing.Size(1334, 641);
+			this.tabPage5.TabIndex = 4;
+			this.tabPage5.Text = "Статистика";
+			this.tabPage5.UseVisualStyleBackColor = true;
+			// 
+			// lblTotalPatients
+			// 
+			this.lblTotalPatients.AutoSize = true;
+			this.lblTotalPatients.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.lblTotalPatients.Location = new System.Drawing.Point(87, 55);
+			this.lblTotalPatients.Name = "lblTotalPatients";
+			this.lblTotalPatients.Size = new System.Drawing.Size(263, 32);
+			this.lblTotalPatients.TabIndex = 0;
+			this.lblTotalPatients.Text = "Всього пацієнтів: 0";
+			// 
+			// lblTotalProducts
+			// 
+			this.lblTotalProducts.AutoSize = true;
+			this.lblTotalProducts.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.lblTotalProducts.Location = new System.Drawing.Point(87, 155);
+			this.lblTotalProducts.Name = "lblTotalProducts";
+			this.lblTotalProducts.Size = new System.Drawing.Size(370, 32);
+			this.lblTotalProducts.TabIndex = 1;
+			this.lblTotalProducts.Text = "Всього товарів на складі: 0";
+			// 
+			// lblTotalAppointments
+			// 
+			this.lblTotalAppointments.AutoSize = true;
+			this.lblTotalAppointments.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.lblTotalAppointments.Location = new System.Drawing.Point(87, 268);
+			this.lblTotalAppointments.Name = "lblTotalAppointments";
+			this.lblTotalAppointments.Size = new System.Drawing.Size(308, 32);
+			this.lblTotalAppointments.TabIndex = 2;
+			this.lblTotalAppointments.Text = "Записів у календарі: 0";
+			// 
+			// lblTotalMoney
+			// 
+			this.lblTotalMoney.AutoSize = true;
+			this.lblTotalMoney.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.lblTotalMoney.Location = new System.Drawing.Point(87, 378);
+			this.lblTotalMoney.Name = "lblTotalMoney";
+			this.lblTotalMoney.Size = new System.Drawing.Size(399, 32);
+			this.lblTotalMoney.TabIndex = 3;
+			this.lblTotalMoney.Text = "Сума товарів на складі: 0 грн";
+			// 
+			// chart1
+			// 
+			chartArea1.Name = "ChartArea1";
+			this.chart1.ChartAreas.Add(chartArea1);
+			legend1.Name = "Legend1";
+			this.chart1.Legends.Add(legend1);
+			this.chart1.Location = new System.Drawing.Point(703, 55);
+			this.chart1.Name = "chart1";
+			series1.ChartArea = "ChartArea1";
+			series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+			series1.Legend = "Legend1";
+			series1.Name = "Series1";
+			this.chart1.Series.Add(series1);
+			this.chart1.Size = new System.Drawing.Size(534, 355);
+			this.chart1.TabIndex = 4;
+			this.chart1.Text = "chart1";
 			// 
 			// Form1
 			// 
