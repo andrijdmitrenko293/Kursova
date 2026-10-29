@@ -927,5 +927,15 @@ namespace Kursova
 		{
 
 		}
+
+		private void chart1_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void lblTotalPatients_Click(object sender, EventArgs e)
+		{
+
+		}
 	}
 }
