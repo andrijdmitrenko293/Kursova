@@ -94,6 +94,13 @@
 			this.lblTotalAppointments = new System.Windows.Forms.Label();
 			this.lblTotalProducts = new System.Windows.Forms.Label();
 			this.lblTotalPatients = new System.Windows.Forms.Label();
+			this.tabPage6 = new System.Windows.Forms.TabPage();
+			this.label19 = new System.Windows.Forms.Label();
+			this.label18 = new System.Windows.Forms.Label();
+			this.pictureBox1 = new System.Windows.Forms.PictureBox();
+			this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+			this.label17 = new System.Windows.Forms.Label();
+			this.label16 = new System.Windows.Forms.Label();
 			this.button2 = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tabPage1.SuspendLayout();
@@ -107,6 +114,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
 			this.tabPage5.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+			this.tabPage6.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -116,6 +125,7 @@
 			this.tabControl1.Controls.Add(this.tabPage3);
 			this.tabControl1.Controls.Add(this.tabPage4);
 			this.tabControl1.Controls.Add(this.tabPage5);
+			this.tabControl1.Controls.Add(this.tabPage6);
 			this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -917,6 +927,86 @@
 			this.lblTotalPatients.Text = "Всього пацієнтів: 0";
 			this.lblTotalPatients.Click += new System.EventHandler(this.lblTotalPatients_Click);
 			// 
+			// tabPage6
+			// 
+			this.tabPage6.Controls.Add(this.label19);
+			this.tabPage6.Controls.Add(this.label18);
+			this.tabPage6.Controls.Add(this.pictureBox1);
+			this.tabPage6.Controls.Add(this.linkLabel1);
+			this.tabPage6.Controls.Add(this.label17);
+			this.tabPage6.Controls.Add(this.label16);
+			this.tabPage6.Location = new System.Drawing.Point(4, 25);
+			this.tabPage6.Name = "tabPage6";
+			this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage6.Size = new System.Drawing.Size(1185, 510);
+			this.tabPage6.TabIndex = 5;
+			this.tabPage6.Text = "Про програму";
+			this.tabPage6.UseVisualStyleBackColor = true;
+			// 
+			// label19
+			// 
+			this.label19.AutoSize = true;
+			this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.label19.Location = new System.Drawing.Point(394, 263);
+			this.label19.Name = "label19";
+			this.label19.Size = new System.Drawing.Size(544, 25);
+			this.label19.TabIndex = 6;
+			this.label19.Text = "Спеціальність: 121 Інженерія програмного забезпечення";
+			// 
+			// label18
+			// 
+			this.label18.AutoSize = true;
+			this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.label18.Location = new System.Drawing.Point(394, 192);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(109, 25);
+			this.label18.TabIndex = 5;
+			this.label18.Text = "Група: 731";
+			// 
+			// pictureBox1
+			// 
+			this.pictureBox1.Image = global::Kursova.Properties.Resources._1793348977255;
+			this.pictureBox1.InitialImage = null;
+			this.pictureBox1.Location = new System.Drawing.Point(21, 46);
+			this.pictureBox1.Name = "pictureBox1";
+			this.pictureBox1.Size = new System.Drawing.Size(322, 320);
+			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+			this.pictureBox1.TabIndex = 4;
+			this.pictureBox1.TabStop = false;
+			// 
+			// linkLabel1
+			// 
+			this.linkLabel1.AutoSize = true;
+			this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.linkLabel1.Location = new System.Drawing.Point(394, 341);
+			this.linkLabel1.Name = "linkLabel1";
+			this.linkLabel1.Size = new System.Drawing.Size(204, 25);
+			this.linkLabel1.TabIndex = 3;
+			this.linkLabel1.TabStop = true;
+			this.linkLabel1.Text = "Мій проєкт на GitHub";
+			this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+			// 
+			// label17
+			// 
+			this.label17.AutoSize = true;
+			this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.label17.Location = new System.Drawing.Point(394, 122);
+			this.label17.Name = "label17";
+			this.label17.Size = new System.Drawing.Size(616, 25);
+			this.label17.TabIndex = 1;
+			this.label17.Text = "Виконав: студент КІПФК СумДу Дмитренко Андрій Олексійович";
+			this.label17.Click += new System.EventHandler(this.label17_Click);
+			// 
+			// label16
+			// 
+			this.label16.AutoSize = true;
+			this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+			this.label16.Location = new System.Drawing.Point(394, 46);
+			this.label16.Name = "label16";
+			this.label16.Size = new System.Drawing.Size(757, 25);
+			this.label16.TabIndex = 0;
+			this.label16.Text = "Курсовий проєкт: Автоматизована інформаційна система ветеринарної клініки";
+			// 
 			// button2
 			// 
 			this.button2.Location = new System.Drawing.Point(591, 303);
@@ -955,6 +1045,9 @@
 			this.tabPage5.ResumeLayout(false);
 			this.tabPage5.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+			this.tabPage6.ResumeLayout(false);
+			this.tabPage6.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -1024,6 +1117,13 @@
 		private System.Windows.Forms.Label lblTotalProducts;
 		private System.Windows.Forms.Label lblTotalPatients;
 		private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+		private System.Windows.Forms.TabPage tabPage6;
+		private System.Windows.Forms.Label label18;
+		private System.Windows.Forms.PictureBox pictureBox1;
+		private System.Windows.Forms.LinkLabel linkLabel1;
+		private System.Windows.Forms.Label label17;
+		private System.Windows.Forms.Label label16;
+		private System.Windows.Forms.Label label19;
 	}
 }
 
